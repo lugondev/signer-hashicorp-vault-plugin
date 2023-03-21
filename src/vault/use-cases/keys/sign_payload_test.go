@@ -4,16 +4,16 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
 	"github.com/consensys/quorum/crypto"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	"testing"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	apputils "github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
-	mocks2 "github.com/consensys/quorum-hashicorp-vault-plugin/src/utils/mocks"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases/mocks"
 	"github.com/golang/mock/gomock"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	apputils "github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
+	mocks2 "github.com/lugondev/signer-hashicorp-vault-plugin/src/utils/mocks"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases/mocks"
 	"github.com/stretchr/testify/assert"
 )
 

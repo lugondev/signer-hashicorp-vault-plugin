@@ -2,13 +2,12 @@ package ethereum
 
 import (
 	"context"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
-
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
-	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
 	"github.com/consensys/quorum/common/hexutil"
+	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 
 	"github.com/consensys/quorum/crypto"
 )
@@ -25,9 +24,9 @@ func NewSignUseCase(getAccountUC usecases.GetAccountUseCase) usecases.SignUseCas
 	}
 }
 
-func (uc signPayloadUseCase) WithStorage(storage logical.Storage) usecases.SignUseCase {
+func (uc *signPayloadUseCase) WithStorage(storage logical.Storage) usecases.SignUseCase {
 	uc.getAccountUC = uc.getAccountUC.WithStorage(storage)
-	return &uc
+	return uc
 }
 
 // Execute signs an arbitrary payload using an existing Ethereum account

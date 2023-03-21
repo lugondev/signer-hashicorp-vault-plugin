@@ -2,12 +2,12 @@ package ethereum
 
 import (
 	"context"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/storage"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/storage"
 )
 
 // listAccountsUseCase is a use case to get a list of Ethereum accounts

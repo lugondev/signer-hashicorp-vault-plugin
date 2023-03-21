@@ -4,8 +4,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/consensys/quorum/common"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 
 func FakeETHAccount() *entities.ETHAccount {
@@ -14,16 +14,6 @@ func FakeETHAccount() *entities.ETHAccount {
 		PublicKey:           common.HexToHash(randHexString(12)).String(),
 		CompressedPublicKey: common.HexToHash(randHexString(12)).String(),
 		Namespace:           "_",
-	}
-}
-
-func FakeZksAccount() *entities.ZksAccount {
-	return &entities.ZksAccount{
-		Algorithm:  entities.EDDSA,
-		Curve:      entities.Babyjubjub,
-		PublicKey:  "0x022d15d1be3a2459f4dfdca5b6ec3d255107592c4f231952fcf2b0cb7d77ec05",
-		PrivateKey: "0x022d15d1be3a2459f4dfdca5b6ec3d255107592c4f231952fcf2b0cb7d77ec05d2751c7f7db7277404b1cd0d83ed1480bef16ac8f502d90283048aa64bb872d6d2795be44a31796693f1084a1f07f9b94c3dcbde35780291fcb0e2e3eeed5c65",
-		Namespace:  "_",
 	}
 }
 

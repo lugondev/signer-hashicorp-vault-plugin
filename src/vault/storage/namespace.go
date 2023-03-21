@@ -3,25 +3,25 @@ package storage
 import (
 	"context"
 	"fmt"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 	"strings"
 
 	"github.com/hashicorp/vault/sdk/logical"
 )
 
 const (
+	WalletSecretsPath   = "wallets"
 	EthereumSecretsPath = "ethereum"
-	ZkSnarksSecretsPath = "zk-snarks"
 	KeysSecretPath      = "keys"
 )
 
-func GetEthereumNamespaces(ctx context.Context, storage logical.Storage, namespace string, namespaceSet map[string]bool) error {
-	return getNamespaces(ctx, storage, EthereumSecretsPath, namespace, namespaceSet)
+func GetWalletsNamespaces(ctx context.Context, storage logical.Storage, namespace string, namespaceSet map[string]bool) error {
+	return getNamespaces(ctx, storage, WalletSecretsPath, namespace, namespaceSet)
 }
 
-func GetZkSnarksNamespaces(ctx context.Context, storage logical.Storage, namespace string, namespaceSet map[string]bool) error {
-	return getNamespaces(ctx, storage, ZkSnarksSecretsPath, namespace, namespaceSet)
+func GetEthereumNamespaces(ctx context.Context, storage logical.Storage, namespace string, namespaceSet map[string]bool) error {
+	return getNamespaces(ctx, storage, EthereumSecretsPath, namespace, namespaceSet)
 }
 
 func GetKeysNamespaces(ctx context.Context, storage logical.Storage, namespace string, namespaceSet map[string]bool) error {
@@ -54,12 +54,17 @@ func getNamespaces(ctx context.Context, storage logical.Storage, secretsPath, na
 	return nil
 }
 
-func ComputeEthereumStorageKey(accountID, namespace string) string {
-	return computeStorageKey(EthereumSecretsPath, accountID, namespace)
+func ComputeWalletsStorageKey(compressedPublicKey, namespace string) string {
+	path := fmt.Sprintf("%s/%s", WalletSecretsPath, compressedPublicKey)
+	if namespace != "" {
+		path = fmt.Sprintf("%s/%s", namespace, path)
+	}
+
+	return path
 }
 
-func ComputeZksStorageKey(accountID, namespace string) string {
-	return computeStorageKey(ZkSnarksSecretsPath, accountID, namespace)
+func ComputeEthereumStorageKey(accountID, namespace string) string {
+	return computeStorageKey(EthereumSecretsPath, accountID, namespace)
 }
 
 func ComputeKeysStorageKey(id, namespace string) string {
@@ -72,7 +77,7 @@ func ComputeKeysStorageKey(id, namespace string) string {
 }
 
 func computeStorageKey(secretsPath, accountID, namespace string) string {
-	path := fmt.Sprintf("%s/accounts/%s", secretsPath, accountID)
+	path := fmt.Sprintf("%s/%s", secretsPath, accountID)
 	if namespace != "" {
 		path = fmt.Sprintf("%s/%s", namespace, path)
 	}

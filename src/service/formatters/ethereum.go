@@ -1,15 +1,15 @@
 package formatters
 
 import (
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	"math/big"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/consensys/quorum/common/hexutil"
 	"github.com/consensys/quorum/core/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 
 func FormatAccountResponse(account *entities.ETHAccount) *logical.Response {

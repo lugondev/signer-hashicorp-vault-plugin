@@ -2,8 +2,8 @@ package errors
 
 import (
 	"errors"
-	pkgerrors "github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
 	"github.com/hashicorp/vault/sdk/logical"
+	pkgerrors "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 )
 
 func ParseHTTPError(err error) (*logical.Response, error) {

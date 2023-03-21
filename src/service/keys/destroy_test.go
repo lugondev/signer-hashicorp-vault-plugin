@@ -2,12 +2,12 @@ package keys
 
 import (
 	"fmt"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/service/formatters"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
 	"github.com/golang/mock/gomock"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/service/formatters"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"

@@ -2,7 +2,7 @@ package ethereum
 
 import (
 	"crypto/ecdsa"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 	"math/big"
 
 	"github.com/consensys/quorum/core/types"

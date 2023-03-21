@@ -6,12 +6,12 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	apputils "github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/utils/mocks"
-	mocks2 "github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases/mocks"
 	quorumtypes "github.com/consensys/quorum/core/types"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	apputils "github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils/mocks"
+	mocks2 "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases/mocks"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

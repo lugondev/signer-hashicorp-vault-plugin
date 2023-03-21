@@ -1,7 +1,7 @@
 package ethereum
 
 import (
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	"github.com/stretchr/testify/require"
 	"testing"
 

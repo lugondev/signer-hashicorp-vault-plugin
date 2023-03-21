@@ -4,10 +4,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src"
-	log2 "github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/sdk/plugin"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src"
+	log2 "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 	}
 
 	log2.InitLogger()
-	
+
 	err = plugin.Serve(&plugin.ServeOpts{
 		BackendFactoryFunc: src.NewVaultBackend,
 		TLSProviderFunc:    api.VaultPluginTLSProvider(client.GetTLSConfig()),

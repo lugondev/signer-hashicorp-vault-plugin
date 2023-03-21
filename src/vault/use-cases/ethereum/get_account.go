@@ -2,12 +2,12 @@ package ethereum
 
 import (
 	"context"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/storage"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/storage"
 )
 
 // getAccountUseCase is a use case to get an Ethereum account
@@ -20,9 +20,9 @@ func NewGetAccountUseCase() usecases.GetAccountUseCase {
 	return &getAccountUseCase{}
 }
 
-func (uc getAccountUseCase) WithStorage(storage logical.Storage) usecases.GetAccountUseCase {
+func (uc *getAccountUseCase) WithStorage(storage logical.Storage) usecases.GetAccountUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 // Execute creates a new Ethereum account and stores it in the Vault

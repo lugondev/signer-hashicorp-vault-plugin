@@ -6,7 +6,7 @@ import (
 
 	"github.com/consensys/quorum/core/types"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 
 //go:generate mockgen -source=ethereum.go -destination=mocks/ethereum.go -package=mocks

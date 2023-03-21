@@ -1,15 +1,15 @@
 package ethereum
 
 import (
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	"github.com/stretchr/testify/require"
 	"testing"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/service/formatters"
-	apputils "github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
 	"github.com/golang/mock/gomock"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/service/formatters"
+	apputils "github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,7 +18,7 @@ func (s *ethereumCtrlTestSuite) TestEthereumController_Create() {
 	createOperation := path.Operations[logical.CreateOperation]
 
 	s.T().Run("should define the correct path", func(t *testing.T) {
-		assert.Equal(t, "ethereum/accounts/?", path.Pattern)
+		assert.Equal(t, "ethereum/?", path.Pattern)
 		assert.NotEmpty(t, createOperation)
 	})
 

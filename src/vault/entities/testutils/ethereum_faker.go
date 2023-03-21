@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/consensys/quorum/common"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 
 func FakePrivateETHTransactionParams() *entities.PrivateETHTransactionParams {

@@ -2,16 +2,15 @@ package ethereum
 
 import (
 	"context"
-	signing "github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/crypto/ethereum"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
 	"github.com/consensys/quorum/core/types"
-
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
-	"github.com/consensys/quorum/crypto"
-	"github.com/hashicorp/vault/sdk/logical"
+	signing "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/crypto/ethereum"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
 	"github.com/consensys/quorum/common/hexutil"
+	"github.com/consensys/quorum/crypto"
+	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 )
 
 // signTxUseCase is a use case to sign an ethereum transaction using an existing account

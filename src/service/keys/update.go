@@ -2,13 +2,13 @@ package keys
 
 import (
 	"context"
-	errors2 "github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/service/errors"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/service/formatters"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
+	errors2 "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/service/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/service/formatters"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
 )
 
 func (c *controller) NewUpdateOperation() *framework.PathOperation {

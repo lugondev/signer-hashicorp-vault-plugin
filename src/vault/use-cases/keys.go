@@ -3,8 +3,8 @@ package usecases
 import (
 	"context"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 
 //go:generate mockgen -source=keys.go -destination=mocks/keys.go -package=mocks

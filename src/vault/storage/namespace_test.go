@@ -10,12 +10,12 @@ func TestComputeKey(t *testing.T) {
 	t.Run("should compute key by adding the namespace", func(t *testing.T) {
 		key := computeStorageKey("ethereum", "address", "namespace")
 
-		assert.Equal(t, "namespace/ethereum/accounts/address", key)
+		assert.Equal(t, "namespace/ethereum/address", key)
 	})
 
 	t.Run("should compute key without namespace", func(t *testing.T) {
 		key := computeStorageKey("ethereum", "address", "")
 
-		assert.Equal(t, "ethereum/accounts/address", key)
+		assert.Equal(t, "ethereum/address", key)
 	})
 }

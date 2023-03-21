@@ -1,8 +1,8 @@
 package formatters
 
 import (
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 
 func FormatKeyResponse(key *entities.Key) *logical.Response {

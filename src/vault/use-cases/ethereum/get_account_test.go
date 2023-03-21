@@ -3,15 +3,15 @@ package ethereum
 import (
 	"context"
 	"fmt"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
 	"github.com/consensys/quorum/common"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	"testing"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	apputils "github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/utils/mocks"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/storage"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	apputils "github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils/mocks"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/storage"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

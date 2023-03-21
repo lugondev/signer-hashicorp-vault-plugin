@@ -14,7 +14,7 @@ WORKDIR /plugin
 
 ENV GO111MODULE=on
 COPY go.mod go.sum ./
-COPY LICENSE ./
+#COPY LICENSE ./
 RUN go mod download
 
 COPY . .
@@ -35,10 +35,8 @@ RUN apk add --no-cache \
 # Expose the plugin directory as a volume
 VOLUME /vault/plugins
 
-COPY --from=builder /plugin/LICENSE /
 COPY --from=builder /plugin/quorum-hashicorp-vault-plugin /vault/plugins/quorum-hashicorp-vault-plugin
-COPY --from=builder /plugin/SHA256SUM /vault/plugins/SHA256SUM
-COPY --from=builder /plugin/scripts/* /usr/local/bin/
+COPY --from=builder /plugin/vault/scripts/* /usr/local/bin/
 
 RUN setcap cap_ipc_lock=+ep /vault/plugins/quorum-hashicorp-vault-plugin
 

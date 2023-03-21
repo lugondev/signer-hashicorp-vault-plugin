@@ -3,17 +3,17 @@ package keys
 import (
 	"context"
 	"crypto/ecdsa"
-	crypto2 "github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/crypto"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/encoding"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
+	crypto2 "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/crypto"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/encoding"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/storage"
-	usecases "github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
 	babyjubjub "github.com/consensys/gnark-crypto/ecc/bn254/twistededwards/eddsa"
 	"github.com/consensys/quorum/crypto"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/storage"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 	"time"
 )
 

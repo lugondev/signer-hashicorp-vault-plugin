@@ -1,8 +1,8 @@
 package builder
 
 import (
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases/ethereum"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases/ethereum"
 )
 
 type ethereumUseCases struct {

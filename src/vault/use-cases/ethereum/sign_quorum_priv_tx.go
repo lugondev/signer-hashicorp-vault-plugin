@@ -2,16 +2,15 @@ package ethereum
 
 import (
 	"context"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
-
-	signing "github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/crypto/ethereum"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
-	"github.com/consensys/quorum/crypto"
-	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
 	"github.com/consensys/quorum/common/hexutil"
 	"github.com/consensys/quorum/core/types"
+	"github.com/consensys/quorum/crypto"
+	"github.com/hashicorp/vault/sdk/logical"
+	signing "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/crypto/ethereum"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 )
 
 // signQuorumPrivateTxUseCase is a use case to sign a Quorum private transaction using an existing account
@@ -26,9 +25,9 @@ func NewSignQuorumPrivateTransactionUseCase(getAccountUC usecases.GetAccountUseC
 	}
 }
 
-func (uc signQuorumPrivateTxUseCase) WithStorage(storage logical.Storage) usecases.SignQuorumPrivateTransactionUseCase {
+func (uc *signQuorumPrivateTxUseCase) WithStorage(storage logical.Storage) usecases.SignQuorumPrivateTransactionUseCase {
 	uc.getAccountUC = uc.getAccountUC.WithStorage(storage)
-	return &uc
+	return uc
 }
 
 // Execute signs a Quorum private transaction

@@ -3,11 +3,11 @@ package keys
 import (
 	"fmt"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/service/formatters"
-	usecases "github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/service/formatters"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 )
 
 type controller struct {

@@ -3,11 +3,11 @@ package ethereum
 import (
 	"fmt"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/service/formatters"
-	usecases "github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/service/formatters"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 )
 
 type controller struct {
@@ -44,7 +44,7 @@ func (c *controller) Paths() []*framework.Path {
 
 func (c *controller) pathAccounts() *framework.Path {
 	return &framework.Path{
-		Pattern:      "ethereum/accounts/?",
+		Pattern:      "ethereum/?",
 		HelpSynopsis: "Creates a new Ethereum account or list them",
 		Operations: map[logical.Operation]framework.OperationHandler{
 			logical.CreateOperation: c.NewCreateOperation(),
@@ -68,7 +68,7 @@ func (c *controller) pathNamespaces() *framework.Path {
 
 func (c *controller) pathAccount() *framework.Path {
 	return &framework.Path{
-		Pattern:      fmt.Sprintf("ethereum/accounts/%s", framework.GenericNameRegex(formatters.IDLabel)),
+		Pattern:      fmt.Sprintf("ethereum/%s", framework.GenericNameRegex(formatters.IDLabel)),
 		HelpSynopsis: "Get, update or delete an Ethereum account",
 		Fields: map[string]*framework.FieldSchema{
 			formatters.IDLabel: formatters.AddressFieldSchema,
@@ -81,7 +81,7 @@ func (c *controller) pathAccount() *framework.Path {
 
 func (c *controller) pathImportAccount() *framework.Path {
 	return &framework.Path{
-		Pattern: "ethereum/accounts/import",
+		Pattern: "ethereum/import",
 		Fields: map[string]*framework.FieldSchema{
 			formatters.PrivateKeyLabel: {
 				Type:        framework.TypeString,
@@ -99,7 +99,7 @@ func (c *controller) pathImportAccount() *framework.Path {
 
 func (c *controller) pathSignPayload() *framework.Path {
 	return &framework.Path{
-		Pattern: fmt.Sprintf("ethereum/accounts/%s/sign", framework.GenericNameRegex(formatters.IDLabel)),
+		Pattern: fmt.Sprintf("ethereum/%s/sign", framework.GenericNameRegex(formatters.IDLabel)),
 		Fields: map[string]*framework.FieldSchema{
 			formatters.IDLabel: formatters.AddressFieldSchema,
 			formatters.DataLabel: {
@@ -118,7 +118,7 @@ func (c *controller) pathSignPayload() *framework.Path {
 
 func (c *controller) pathSignTransaction() *framework.Path {
 	return &framework.Path{
-		Pattern: fmt.Sprintf("ethereum/accounts/%s/sign-transaction", framework.GenericNameRegex(formatters.IDLabel)),
+		Pattern: fmt.Sprintf("ethereum/%s/sign-transaction", framework.GenericNameRegex(formatters.IDLabel)),
 		Fields: map[string]*framework.FieldSchema{
 			formatters.IDLabel:       formatters.AddressFieldSchema,
 			formatters.NonceLabel:    formatters.NonceFieldSchema,
@@ -139,7 +139,7 @@ func (c *controller) pathSignTransaction() *framework.Path {
 
 func (c *controller) pathSignQuorumPrivate() *framework.Path {
 	return &framework.Path{
-		Pattern: fmt.Sprintf("ethereum/accounts/%s/sign-quorum-private-transaction", framework.GenericNameRegex(formatters.IDLabel)),
+		Pattern: fmt.Sprintf("ethereum/%s/sign-quorum-private-transaction", framework.GenericNameRegex(formatters.IDLabel)),
 		Fields: map[string]*framework.FieldSchema{
 			formatters.IDLabel:       formatters.AddressFieldSchema,
 			formatters.NonceLabel:    formatters.NonceFieldSchema,
@@ -159,7 +159,7 @@ func (c *controller) pathSignQuorumPrivate() *framework.Path {
 
 func (c *controller) pathSignEEA() *framework.Path {
 	return &framework.Path{
-		Pattern: fmt.Sprintf("ethereum/accounts/%s/sign-eea-transaction", framework.GenericNameRegex(formatters.IDLabel)),
+		Pattern: fmt.Sprintf("ethereum/%s/sign-eea-transaction", framework.GenericNameRegex(formatters.IDLabel)),
 		Fields: map[string]*framework.FieldSchema{
 			formatters.IDLabel:             formatters.AddressFieldSchema,
 			formatters.NonceLabel:          formatters.NonceFieldSchema,

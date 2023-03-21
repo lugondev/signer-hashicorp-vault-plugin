@@ -7,28 +7,57 @@ x-container-common: &container-common
 services:
   vault:
     <<: *container-common
-    image: library/vault:1.8.4
-    restart: ${CONTAINER_RESTART-on-failure}
+#    image: toanalien/quorum-hashicorp-vault-plugin:v1.1.5
+    build:
+      context: .
+      dockerfile: Dockerfile
     tty: true
     cap_add:
       - IPC_LOCK
     volumes:
-      - ./build/bin/quorum-hashicorp-vault-plugin:/vault/plugins/quorum-hashicorp-vault-plugin
-      - ./scripts/vault-init-dev.sh:/usr/local/bin/vault-init.sh
+      - ./vault/vault-data:/vault/file
+      - ./vault/vault-token:/vault/token
+      - ./vault/scripts/vault-init.sh:/usr/local/bin/init.sh
     environment:
+      ROOT_TOKEN_PATH: /vault/token/.root
       VAULT_ADDR: http://vault:8200
-      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_TOKEN-DevVaultToken}
+      PLUGIN_MOUNT_PATH: quorum
+      PLUGIN_PATH: /vault/plugins
+      KVV2_MOUNT_PATH: secret
+      VAULT_IS_READY: /vault/token/.ready
     entrypoint:
       - sh
       - -c
       - |
-        apk add --no-cache curl
-        ( sleep 2 ; vault-init.sh ) &
-        vault server -dev -dev-plugin-dir=/vault/plugins/ -dev-listen-address="0.0.0.0:8200" -log-level=trace
+        cat <<EOF > /vault/config.hcl
+            ui = true
+            backend "file" {
+              path = "/vault/file"
+            }
+            listener "tcp" {
+              address = "vault:8200"
+              tls_disable = true
+            }
+            default_lease_ttl = "15m"
+            max_lease_ttl = "30m"
+            api_addr = "http://vault:8200"
+            plugin_directory = "/vault/plugins"
+            log_level = "Debug"
+        EOF
+        ( sleep 2 ; sh /usr/local/bin/init.sh && cat > $${VAULT_IS_READY}) &
+        vault server -config=/vault/config.hcl
     ports:
       - 8200:8200
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "--proxy", "off", "http://localhost:8200/v1/sys/health?standbyok=true" ]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "--proxy",
+          "off",
+          "http://vault:8200/v1/sys/health?standbyok=true"
+        ]
       interval: 10s
       timeout: 3s
       retries: 10

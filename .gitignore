@@ -38,3 +38,5 @@ atlassian-ide-plugin.xml
 .vscode
 
 !/**/**/.gitkeep
+
+vault/vault-*

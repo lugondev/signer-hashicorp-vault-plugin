@@ -3,14 +3,14 @@ package keys
 import (
 	"context"
 	"fmt"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	"testing"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/utils"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/utils/mocks"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/golang/mock/gomock"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils/mocks"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/stretchr/testify/assert"
 )
 

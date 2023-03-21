@@ -4,12 +4,12 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/pkg/log"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/entities"
-	"github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/storage"
-	usecases "github.com/consensys/quorum-hashicorp-vault-plugin/src/vault/use-cases"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/storage"
+	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
 	"github.com/hashicorp/vault/sdk/logical"
 
@@ -28,9 +28,9 @@ func NewCreateAccountUseCase() usecases.CreateAccountUseCase {
 	return &createAccountUseCase{}
 }
 
-func (uc createAccountUseCase) WithStorage(storage logical.Storage) usecases.CreateAccountUseCase {
+func (uc *createAccountUseCase) WithStorage(storage logical.Storage) usecases.CreateAccountUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 // Execute creates a new Ethereum account and stores it in the Vault

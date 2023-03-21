@@ -40,7 +40,7 @@ lint-ci: ## Check linting
 prod: gobuild
 	@docker-compose -f docker-compose.yml up --build vault
 
-dev: gobuild
+dev:  gobuild docker-build
 	@docker-compose -f docker-compose.dev.yml up --build vault
 
 down:
