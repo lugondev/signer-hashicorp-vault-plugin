@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
+	crypto2 "github.com/ethereum/go-ethereum/crypto"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
@@ -13,9 +14,9 @@ import (
 
 	"github.com/hashicorp/vault/sdk/logical"
 
-	"github.com/consensys/quorum/common/hexutil"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/consensys/quorum/crypto"
+	"github.com/ethereum/go-ethereum/crypto"
 )
 
 // createWalletUseCase is a use case to create a new wallet
@@ -59,7 +60,7 @@ func (uc *createWalletUseCase) Execute(ctx context.Context, namespace, importedP
 	account := &entities.Wallet{
 		PrivateKey:          hex.EncodeToString(crypto.FromECDSA(privKey)),
 		PublicKey:           hexutil.Encode(crypto.FromECDSAPub(&privKey.PublicKey)),
-		CompressedPublicKey: hexutil.Encode(crypto.CompressPubkey(&privKey.PublicKey)),
+		CompressedPublicKey: hexutil.Encode(crypto2.CompressPubkey(&privKey.PublicKey)),
 		Namespace:           namespace,
 	}
 
@@ -68,6 +69,6 @@ func (uc *createWalletUseCase) Execute(ctx context.Context, namespace, importedP
 		return nil, err
 	}
 
-	logger.With("compressedPublicKey", account.CompressedPublicKey).Info("Wallet created successfully")
+	logger.With("compressedPublicKey", account.CompressedPublicKey).Info("wallet created successfully")
 	return account, nil
 }

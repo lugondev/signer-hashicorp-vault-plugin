@@ -1,8 +1,8 @@
 package ethereum
 
 import (
-	"github.com/consensys/quorum/common"
-	"github.com/consensys/quorum/rlp"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/rlp"
 	"golang.org/x/crypto/sha3"
 )
 

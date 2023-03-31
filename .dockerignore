@@ -6,10 +6,6 @@ Dockerfile*
 docker-compose*
 .gitlab-ci.yml
 
-vendor/
-
-AUTHORS
-CONTRIBUTING.md
 Makefile
 README.md
 

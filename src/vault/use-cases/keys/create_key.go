@@ -9,7 +9,7 @@ import (
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 
 	babyjubjub "github.com/consensys/gnark-crypto/ecc/bn254/twistededwards/eddsa"
-	"github.com/consensys/quorum/crypto"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/hashicorp/vault/sdk/logical"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/storage"

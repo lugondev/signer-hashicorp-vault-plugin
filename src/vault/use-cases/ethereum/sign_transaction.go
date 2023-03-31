@@ -2,13 +2,13 @@ package ethereum
 
 import (
 	"context"
-	"github.com/consensys/quorum/core/types"
+	"github.com/ethereum/go-ethereum/core/types"
 	signing "github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/crypto/ethereum"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
-	"github.com/consensys/quorum/common/hexutil"
-	"github.com/consensys/quorum/crypto"
+	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/hashicorp/vault/sdk/logical"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 )

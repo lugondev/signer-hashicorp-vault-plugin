@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
+	crypto2 "github.com/ethereum/go-ethereum/crypto"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
@@ -13,9 +14,9 @@ import (
 
 	"github.com/hashicorp/vault/sdk/logical"
 
-	"github.com/consensys/quorum/common/hexutil"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/consensys/quorum/crypto"
+	"github.com/ethereum/go-ethereum/crypto"
 )
 
 // createAccountUseCase is a use case to create a new Ethereum account
@@ -60,7 +61,7 @@ func (uc *createAccountUseCase) Execute(ctx context.Context, namespace, imported
 		PrivateKey:          hex.EncodeToString(crypto.FromECDSA(privKey)),
 		Address:             crypto.PubkeyToAddress(privKey.PublicKey).Hex(),
 		PublicKey:           hexutil.Encode(crypto.FromECDSAPub(&privKey.PublicKey)),
-		CompressedPublicKey: hexutil.Encode(crypto.CompressPubkey(&privKey.PublicKey)),
+		CompressedPublicKey: hexutil.Encode(crypto2.CompressPubkey(&privKey.PublicKey)),
 		Namespace:           namespace,
 	}
 

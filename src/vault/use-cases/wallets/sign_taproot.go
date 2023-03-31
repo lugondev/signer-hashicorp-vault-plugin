@@ -2,10 +2,9 @@ package wallets
 
 import (
 	"context"
-	"github.com/btcsuite/btcd/btcec/v2"
-	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
+	"github.com/lugondev/signer-hashicorp-vault-plugin/src/utils"
 	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
 	"github.com/hashicorp/vault/sdk/logical"
@@ -14,27 +13,27 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// signPayloadUseCase is a use case to sign an arbitrary payload usign an existing Ethereum account
-type signPayloadUseCase struct {
+// signTaprootUseCase is a use case to sign an arbitrary payload usign an existing Ethereum account
+type signTaprootUseCase struct {
 	getWalletUC usecases.GetWalletUseCase
 }
 
-// NewSignPayloadUseCase creates a new SignUseCase
-func NewSignPayloadUseCase(getWalletUC usecases.GetWalletUseCase) usecases.SignPayloadUseCase {
-	return &signPayloadUseCase{
+// NewSignTaprootUseCase creates a new SignUseCase
+func NewSignTaprootUseCase(getWalletUC usecases.GetWalletUseCase) usecases.SignTaprootUseCase {
+	return &signTaprootUseCase{
 		getWalletUC: getWalletUC,
 	}
 }
 
-func (uc *signPayloadUseCase) WithStorage(storage logical.Storage) usecases.SignPayloadUseCase {
+func (uc *signTaprootUseCase) WithStorage(storage logical.Storage) usecases.SignTaprootUseCase {
 	uc.getWalletUC = uc.getWalletUC.WithStorage(storage)
 	return uc
 }
 
 // Execute signs an arbitrary payload using an existing wallet
-func (uc *signPayloadUseCase) Execute(ctx context.Context, pubkey, namespace, data string) (string, error) {
+func (uc *signTaprootUseCase) Execute(ctx context.Context, pubkey, namespace, data string) (string, error) {
 	logger := log.FromContext(ctx).With("namespace", namespace).With("pubkey", pubkey)
-	logger.Debug("signing message", "type", "wallets/sign_payload")
+	logger.Debug("signing message", "type", "wallets/sign_taproot")
 
 	dataBytes, err := hexutil.Decode(data)
 	if err != nil {
@@ -55,9 +54,7 @@ func (uc *signPayloadUseCase) Execute(ctx context.Context, pubkey, namespace, da
 		return "", errors.CryptoOperationError(errMessage)
 	}
 
-	key, _ := btcec.PrivKeyFromBytes(ecdsaPrivKey.D.Bytes())
-	logger.Debug("ecdsa signing", "key", hexutil.Encode(key.Serialize()))
-	signature := ecdsa.Sign(key, dataBytes)
+	signature, err := utils.SignTaprootSignature(dataBytes, ecdsaPrivKey)
 	if err != nil {
 		errMessage := "failed to sign payload"
 		logger.With("error", err).Error(errMessage)
@@ -65,5 +62,6 @@ func (uc *signPayloadUseCase) Execute(ctx context.Context, pubkey, namespace, da
 	}
 
 	logger.Info("payload signed successfully")
-	return hexutil.Encode(signature.Serialize()), nil
+
+	return hexutil.Encode(signature), nil
 }

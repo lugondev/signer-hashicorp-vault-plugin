@@ -35,8 +35,6 @@ func (c *controller) Paths() []*framework.Path {
 			c.pathAccount(),
 			c.pathSignPayload(),
 			c.pathSignTransaction(),
-			c.pathSignQuorumPrivate(),
-			c.pathSignEEA(),
 			c.pathNamespaces(),
 		},
 	)
@@ -134,46 +132,5 @@ func (c *controller) pathSignTransaction() *framework.Path {
 			logical.UpdateOperation: c.NewSignTransactionOperation(),
 		},
 		HelpSynopsis: "Signs an Ethereum transaction using an existing account",
-	}
-}
-
-func (c *controller) pathSignQuorumPrivate() *framework.Path {
-	return &framework.Path{
-		Pattern: fmt.Sprintf("ethereum/%s/sign-quorum-private-transaction", framework.GenericNameRegex(formatters.IDLabel)),
-		Fields: map[string]*framework.FieldSchema{
-			formatters.IDLabel:       formatters.AddressFieldSchema,
-			formatters.NonceLabel:    formatters.NonceFieldSchema,
-			formatters.ToLabel:       formatters.ToFieldSchema,
-			formatters.AmountLabel:   formatters.AmountFieldSchema,
-			formatters.GasPriceLabel: formatters.GasPriceFieldSchema,
-			formatters.GasLimitLabel: formatters.GasLimitFieldSchema,
-			formatters.DataLabel:     formatters.DataFieldSchema,
-		},
-		Operations: map[logical.Operation]framework.OperationHandler{
-			logical.CreateOperation: c.NewSignQuorumPrivateTransactionOperation(),
-			logical.UpdateOperation: c.NewSignQuorumPrivateTransactionOperation(),
-		},
-		HelpSynopsis: "Signs a Quorum private transaction using an existing account",
-	}
-}
-
-func (c *controller) pathSignEEA() *framework.Path {
-	return &framework.Path{
-		Pattern: fmt.Sprintf("ethereum/%s/sign-eea-transaction", framework.GenericNameRegex(formatters.IDLabel)),
-		Fields: map[string]*framework.FieldSchema{
-			formatters.IDLabel:             formatters.AddressFieldSchema,
-			formatters.NonceLabel:          formatters.NonceFieldSchema,
-			formatters.ToLabel:             formatters.ToFieldSchema,
-			formatters.ChainIDLabel:        formatters.ChainIDFieldSchema,
-			formatters.DataLabel:           formatters.DataFieldSchema,
-			formatters.PrivateFromLabel:    formatters.PrivateFromFieldSchema,
-			formatters.PrivateForLabel:     formatters.PrivateForFieldSchema,
-			formatters.PrivacyGroupIDLabel: formatters.PrivacyGroupIDFieldSchema,
-		},
-		Operations: map[logical.Operation]framework.OperationHandler{
-			logical.CreateOperation: c.NewSignEEATransactionOperation(),
-			logical.UpdateOperation: c.NewSignEEATransactionOperation(),
-		},
-		HelpSynopsis: "Signs an EEA private transaction using an existing account",
 	}
 }

@@ -1,10 +1,10 @@
 package utils
 
 import (
+	"github.com/ethereum/go-ethereum/common"
 	"math/rand"
 	"time"
 
-	"github.com/consensys/quorum/common"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
 

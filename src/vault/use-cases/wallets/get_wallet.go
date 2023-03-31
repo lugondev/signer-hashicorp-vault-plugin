@@ -36,6 +36,6 @@ func (uc *getWalletUseCase) Execute(ctx context.Context, compressedPublicKey, na
 		return nil, err
 	}
 
-	logger.Debug("Wallet found successfully")
+	logger.Debug("wallet found successfully")
 	return account, nil
 }

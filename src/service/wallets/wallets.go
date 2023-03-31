@@ -33,7 +33,7 @@ func (c *controller) Paths() []*framework.Path {
 			c.pathImportWallet(),
 			c.pathWallets(),
 			c.pathWallet(),
-			c.pathSignPayload(),
+			c.pathSign(),
 			c.pathNamespaces(),
 		},
 	)
@@ -94,11 +94,16 @@ func (c *controller) pathImportWallet() *framework.Path {
 	}
 }
 
-func (c *controller) pathSignPayload() *framework.Path {
+func (c *controller) pathSign() *framework.Path {
 	return &framework.Path{
 		Pattern: fmt.Sprintf("wallets/%s/sign", framework.GenericNameRegex(formatters.IDLabel)),
 		Fields: map[string]*framework.FieldSchema{
 			formatters.IDLabel: formatters.AddressFieldSchema,
+			formatters.TypeSignLabel: {
+				Type:        framework.TypeString,
+				Description: "signing type",
+				Required:    false,
+			},
 			formatters.DataLabel: {
 				Type:        framework.TypeString,
 				Description: "data to sign",

@@ -10,7 +10,9 @@ type walletsUseCases struct {
 	getWallet      usecases.GetWalletUseCase
 	listWallets    usecases.ListWalletsUseCase
 	listNamespaces usecases.ListWalletsNamespacesUseCase
-	sign           usecases.SignPayloadUseCase
+	signPayload    usecases.SignPayloadUseCase
+	signMessage    usecases.SignMessageUseCase
+	signTaproot    usecases.SignTaprootUseCase
 }
 
 func NewWalletsUseCases() usecases.WalletsUseCases {
@@ -20,7 +22,9 @@ func NewWalletsUseCases() usecases.WalletsUseCases {
 		getWallet:      getWallet,
 		listWallets:    wallets.NewListWalletsUseCase(),
 		listNamespaces: wallets.NewListWalletNamespacesUseCase(),
-		sign:           wallets.NewSignPayloadUseCase(getWallet),
+		signPayload:    wallets.NewSignPayloadUseCase(getWallet),
+		signMessage:    wallets.NewSignMessageUseCase(getWallet),
+		signTaproot:    wallets.NewSignTaprootUseCase(getWallet),
 	}
 }
 
@@ -41,5 +45,13 @@ func (ucs *walletsUseCases) ListWalletsNamespaces() usecases.ListWalletsNamespac
 }
 
 func (ucs *walletsUseCases) SignPayload() usecases.SignPayloadUseCase {
-	return ucs.sign
+	return ucs.signPayload
+}
+
+func (ucs *walletsUseCases) SignMessage() usecases.SignMessageUseCase {
+	return ucs.signMessage
+}
+
+func (ucs *walletsUseCases) SignTaproot() usecases.SignTaprootUseCase {
+	return ucs.signTaproot
 }

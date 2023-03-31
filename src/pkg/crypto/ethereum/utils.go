@@ -2,9 +2,9 @@ package ethereum
 
 import (
 	"encoding/base64"
-	"math/big"
+	types2 "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/consensys/quorum/core/types"
+	"math/big"
 )
 
 func GetEncodedPrivateFrom(privateFrom string) ([]byte, error) {
@@ -39,12 +39,12 @@ func GetEncodedPrivateRecipient(privacyGroupID string, privateFor []string) (int
 	return privateRecipientEncoded, nil
 }
 
-func GetEIP155Signer(chainID string) types.Signer {
+func GetEIP155Signer(chainID string) types2.Signer {
 	chainIDBigInt := new(big.Int)
 	chainIDBigInt, _ = chainIDBigInt.SetString(chainID, 10)
-	return types.NewEIP155Signer(chainIDBigInt)
+	return types2.NewEIP155Signer(chainIDBigInt)
 }
 
-func GetQuorumPrivateTxSigner() types.Signer {
-	return types.QuorumPrivateTxSigner{}
+func GetQuorumPrivateTxSigner() types2.Signer {
+	return GetEIP155Signer("0")
 }

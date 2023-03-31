@@ -23,6 +23,7 @@ const (
 	NamespaceLabel           = "namespace"
 	SignatureLabel           = "signature"
 	AlgorithmLabel           = "signing_algorithm"
+	TypeSignLabel            = "type_sign"
 	VersionLabel             = "version"
 	CreatedAtLabel           = "created_at"
 	UpdatedAtLabel           = "updated_at"

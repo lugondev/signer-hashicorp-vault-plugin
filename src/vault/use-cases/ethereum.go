@@ -2,9 +2,8 @@ package usecases
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/hashicorp/vault/sdk/logical"
-
-	"github.com/consensys/quorum/core/types"
 
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
 )
@@ -18,8 +17,6 @@ type ETHUseCases interface {
 	ListNamespaces() ListNamespacesUseCase
 	SignPayload() SignUseCase
 	SignTransaction() SignTransactionUseCase
-	SignQuorumPrivateTransaction() SignQuorumPrivateTransactionUseCase
-	SignEEATransaction() SignEEATransactionUseCase
 }
 
 type CreateAccountUseCase interface {
@@ -45,21 +42,6 @@ type SignUseCase interface {
 type SignTransactionUseCase interface {
 	Execute(ctx context.Context, address, namespace, chainID string, tx *types.Transaction) (string, error)
 	WithStorage(storage logical.Storage) SignTransactionUseCase
-}
-
-type SignQuorumPrivateTransactionUseCase interface {
-	Execute(ctx context.Context, address, namespace string, tx *types.Transaction) (string, error)
-	WithStorage(storage logical.Storage) SignQuorumPrivateTransactionUseCase
-}
-
-type SignEEATransactionUseCase interface {
-	Execute(
-		ctx context.Context,
-		address, namespace string, chainID string,
-		tx *types.Transaction,
-		privateArgs *entities.PrivateETHTransactionParams,
-	) (string, error)
-	WithStorage(storage logical.Storage) SignEEATransactionUseCase
 }
 
 type ListNamespacesUseCase interface {

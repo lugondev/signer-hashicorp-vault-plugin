@@ -6,27 +6,23 @@ import (
 )
 
 type ethereumUseCases struct {
-	createAccount       usecases.CreateAccountUseCase
-	getAccount          usecases.GetAccountUseCase
-	listAccounts        usecases.ListAccountsUseCase
-	listNamespaces      usecases.ListNamespacesUseCase
-	sign                usecases.SignUseCase
-	signTx              usecases.SignTransactionUseCase
-	signQuorumPrivateTx usecases.SignQuorumPrivateTransactionUseCase
-	signEEATx           usecases.SignEEATransactionUseCase
+	createAccount  usecases.CreateAccountUseCase
+	getAccount     usecases.GetAccountUseCase
+	listAccounts   usecases.ListAccountsUseCase
+	listNamespaces usecases.ListNamespacesUseCase
+	sign           usecases.SignUseCase
+	signTx         usecases.SignTransactionUseCase
 }
 
 func NewEthereumUseCases() usecases.ETHUseCases {
 	getAccount := ethereum.NewGetAccountUseCase()
 	return &ethereumUseCases{
-		createAccount:       ethereum.NewCreateAccountUseCase(),
-		getAccount:          getAccount,
-		listAccounts:        ethereum.NewListAccountsUseCase(),
-		listNamespaces:      ethereum.NewListNamespacesUseCase(),
-		sign:                ethereum.NewSignUseCase(getAccount),
-		signTx:              ethereum.NewSignTransactionUseCase(getAccount),
-		signQuorumPrivateTx: ethereum.NewSignQuorumPrivateTransactionUseCase(getAccount),
-		signEEATx:           ethereum.NewSignEEATransactionUseCase(getAccount),
+		createAccount:  ethereum.NewCreateAccountUseCase(),
+		getAccount:     getAccount,
+		listAccounts:   ethereum.NewListAccountsUseCase(),
+		listNamespaces: ethereum.NewListNamespacesUseCase(),
+		sign:           ethereum.NewSignUseCase(getAccount),
+		signTx:         ethereum.NewSignTransactionUseCase(getAccount),
 	}
 }
 
@@ -52,12 +48,4 @@ func (ucs *ethereumUseCases) SignPayload() usecases.SignUseCase {
 
 func (ucs *ethereumUseCases) SignTransaction() usecases.SignTransactionUseCase {
 	return ucs.signTx
-}
-
-func (ucs *ethereumUseCases) SignQuorumPrivateTransaction() usecases.SignQuorumPrivateTransactionUseCase {
-	return ucs.signQuorumPrivateTx
-}
-
-func (ucs *ethereumUseCases) SignEEATransaction() usecases.SignEEATransactionUseCase {
-	return ucs.signEEATx
 }

@@ -1,4 +1,4 @@
-.ONESHELL:
+ .ONESHELL:
 GOFILES := $(shell find . -name '*.go' -not -path "./vendor/*" | egrep -v "^\./\.go" | grep -v _test.go)
 DATE = $(shell date +'%s')
 
@@ -23,7 +23,7 @@ coverage: run-coverage
 	@$(OPEN) build/coverage/coverage.html 2>/dev/null
 
 gobuild:
-	@CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -a -o build/bin/quorum-hashicorp-vault-plugin
+	@CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -a -o build/bin/signer-hashicorp-vault-plugin
 
 lint-tools: ## Install linting tools
 	@GO111MODULE=on go get github.com/client9/misspell/cmd/misspell@v0.3.4
@@ -40,11 +40,16 @@ lint-ci: ## Check linting
 prod: gobuild
 	@docker-compose -f docker-compose.yml up --build vault
 
-dev:  gobuild docker-build
+dev: build-linux docker-build
 	@docker-compose -f docker-compose.dev.yml up --build vault
 
 down:
 	@docker-compose -f docker-compose.dev.yml down --volumes --timeout 0
 
 docker-build:
-	@DOCKER_BUILDKIT=1 docker build -t quorum-hashicorp-vault-plugin .
+	docker exec -it signer-hashicorp-vault-plugin-vault-1 rm /vault/plugins/signer-hashicorp-vault-plugin
+	@DOCKER_BUILDKIT=1 docker build -t signer-hashicorp-vault-plugin .
+
+build-linux:
+	go mod tidy
+	env GOOS=linux GOARCH=amd64 go build -v -o ./build/bin/signer-hashicorp-vault-plugin

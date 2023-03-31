@@ -6,7 +6,7 @@ VAULT_ADDR=${VAULT_ADDR-localhost:8200}
 PLUGIN_PATH=${PLUGIN_PATH-/vault/plugins}
 PLUGIN_MOUNT_PATH=${PLUGIN_MOUNT_PATH-quorum}
 ROOT_TOKEN_PATH=${ROOT_TOKEN_PATH-/vault/.root}
-PLUGIN_FILE=/vault/plugins/quorum-hashicorp-vault-plugin
+PLUGIN_FILE=/vault/plugins/signer-hashicorp-vault-plugin
 
 VAULT_SSL_PARAMS=""
 if [ -n "$VAULT_CACERT" ]; then
@@ -46,18 +46,19 @@ curl -s --request POST ${VAULT_SSL_PARAMS} \
 if [ "${PLUGIN_PATH}" != "/vault/plugins" ]; then
   mkdir -p ${PLUGIN_PATH}
   echo "[INIT] Copying plugin to expected folder"
-  cp $PLUGIN_FILE "${PLUGIN_PATH}/quorum-hashicorp-vault-plugin"
+  cp $PLUGIN_FILE "${PLUGIN_PATH}/signer-hashicorp-vault-plugin"
 fi
 
-echo "[INIT] Registering Quorum Hashicorp Vault plugin..."
+echo "[INIT] Registering Hashicorp Vault plugin..."
 SHA256SUM=$(sha256sum -b ${PLUGIN_FILE} | cut -d' ' -f1)
-curl -s --header "X-Vault-Token: ${ROOT_TOKEN}" --request POST ${VAULT_SSL_PARAMS} \
-  --data "{\"sha256\": \"${SHA256SUM}\", \"command\": \"quorum-hashicorp-vault-plugin\" }" \
-  ${VAULT_ADDR}/v1/sys/plugins/catalog/secret/quorum-hashicorp-vault-plugin
 
-echo "[INIT] Enabling Quorum Hashicorp Vault engine..."
 curl -s --header "X-Vault-Token: ${ROOT_TOKEN}" --request POST ${VAULT_SSL_PARAMS} \
-  --data '{"type": "plugin", "plugin_name": "quorum-hashicorp-vault-plugin", "config": {"force_no_cache": true, "passthrough_request_headers": ["X-Vault-Namespace"]} }' \
+  --data "{\"sha256\": \"${SHA256SUM}\", \"command\": \"signer-hashicorp-vault-plugin\" }" \
+  ${VAULT_ADDR}/v1/sys/plugins/catalog/secret/signer-hashicorp-vault-plugin
+
+echo "[INIT] Enabling Hashicorp Vault engine..."
+curl -s --header "X-Vault-Token: ${ROOT_TOKEN}" --request POST ${VAULT_SSL_PARAMS} \
+  --data '{"type": "plugin", "plugin_name": "signer-hashicorp-vault-plugin", "config": {"force_no_cache": true, "passthrough_request_headers": ["X-Vault-Namespace"]} }' \
   ${VAULT_ADDR}/v1/sys/mounts/${PLUGIN_MOUNT_PATH}
 
 if [ -n "$KVV2_MOUNT_PATH" ]; then
@@ -66,6 +67,10 @@ curl --header "X-Vault-Token: ${ROOT_TOKEN}" --request POST ${VAULT_SSL_PARAMS}\
      --data '{"type": "kv-v2", "config": {"force_no_cache": true} }' \
      ${VAULT_ADDR}/v1/sys/mounts/${KVV2_MOUNT_PATH}
 fi
+
+curl -s --header "X-Vault-Token: ${ROOT_TOKEN}" --request POST ${VAULT_SSL_PARAMS} \
+  --data '{"plugin": "signer-hashicorp-vault-plugin" }' \
+  ${VAULT_ADDR}/v1/sys/plugins/reload/backend
 
 if [ -n "$ROOT_TOKEN" ]; then
   echo "[INIT] Root token saved in ${ROOT_TOKEN_PATH}"

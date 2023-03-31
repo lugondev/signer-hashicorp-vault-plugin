@@ -8,7 +8,7 @@ import (
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/encoding"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 
-	"github.com/consensys/quorum/crypto"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/hashicorp/vault/sdk/logical"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/entities"
@@ -91,7 +91,7 @@ func (uc *signPayloadUseCase) signEDDSA(logger hclog.Logger, privKeyB, data []by
 		return "", errors.CryptoOperationError(errMessage)
 	}
 
-	signatureB, err := privKey.Sign(data, hash.MIMC_BN254.New("seed"))
+	signatureB, err := privKey.Sign(data, hash.MIMC_BN254.New())
 	if err != nil {
 		errMessage := "failed to sign payload with EDDSA"
 		logger.With("error", err).Error(errMessage)

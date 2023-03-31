@@ -1,38 +1,38 @@
-package ethereum
+package wallets
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/errors"
 	usecases "github.com/lugondev/signer-hashicorp-vault-plugin/src/vault/use-cases"
 
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/hashicorp/vault/sdk/logical"
 	"github.com/lugondev/signer-hashicorp-vault-plugin/src/pkg/log"
 
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// signPayloadUseCase is a use case to sign an arbitrary payload usign an existing Ethereum account
-type signPayloadUseCase struct {
-	getAccountUC usecases.GetAccountUseCase
+// signMessageUseCase is a use case to sign an arbitrary payload usign an existing Ethereum account
+type signMessageUseCase struct {
+	getWalletUC usecases.GetWalletUseCase
 }
 
-// NewSignUseCase creates a new SignUseCase
-func NewSignUseCase(getAccountUC usecases.GetAccountUseCase) usecases.SignUseCase {
-	return &signPayloadUseCase{
-		getAccountUC: getAccountUC,
+// NewSignMessageUseCase creates a new SignUseCase
+func NewSignMessageUseCase(getWalletUC usecases.GetWalletUseCase) usecases.SignMessageUseCase {
+	return &signMessageUseCase{
+		getWalletUC: getWalletUC,
 	}
 }
 
-func (uc *signPayloadUseCase) WithStorage(storage logical.Storage) usecases.SignUseCase {
-	uc.getAccountUC = uc.getAccountUC.WithStorage(storage)
+func (uc *signMessageUseCase) WithStorage(storage logical.Storage) usecases.SignMessageUseCase {
+	uc.getWalletUC = uc.getWalletUC.WithStorage(storage)
 	return uc
 }
 
 // Execute signs an arbitrary payload using an existing Ethereum account
-func (uc *signPayloadUseCase) Execute(ctx context.Context, address, namespace, data string) (string, error) {
-	logger := log.FromContext(ctx).With("namespace", namespace).With("address", address)
-	logger.Debug("signing message", "type", "ethereum/sign_payload")
+func (uc *signMessageUseCase) Execute(ctx context.Context, pubkey, namespace, data string) (string, error) {
+	logger := log.FromContext(ctx).With("namespace", namespace).With("pubkey", pubkey)
+	logger.Debug("signing message", "type", "wallets/sign_message")
 
 	dataBytes, err := hexutil.Decode(data)
 	if err != nil {
@@ -41,7 +41,7 @@ func (uc *signPayloadUseCase) Execute(ctx context.Context, address, namespace, d
 		return "", errors.InvalidParameterError(errMessage)
 	}
 
-	account, err := uc.getAccountUC.Execute(ctx, address, namespace)
+	account, err := uc.getWalletUC.Execute(ctx, pubkey, namespace)
 	if err != nil {
 		return "", err
 	}

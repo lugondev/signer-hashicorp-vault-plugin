@@ -15,6 +15,8 @@ type WalletsUseCases interface {
 	ListWallets() ListWalletsUseCase
 	ListWalletsNamespaces() ListWalletsNamespacesUseCase
 	SignPayload() SignPayloadUseCase
+	SignMessage() SignMessageUseCase
+	SignTaproot() SignTaprootUseCase
 }
 
 type CreateWalletUseCase interface {
@@ -23,7 +25,7 @@ type CreateWalletUseCase interface {
 }
 
 type GetWalletUseCase interface {
-	Execute(ctx context.Context, address, namespace string) (*entities.Wallet, error)
+	Execute(ctx context.Context, pubkey, namespace string) (*entities.Wallet, error)
 	WithStorage(storage logical.Storage) GetWalletUseCase
 }
 
@@ -33,8 +35,18 @@ type ListWalletsUseCase interface {
 }
 
 type SignPayloadUseCase interface {
-	Execute(ctx context.Context, address, namespace, data string) (string, error)
+	Execute(ctx context.Context, pubkey, namespace, data string) (string, error)
 	WithStorage(storage logical.Storage) SignPayloadUseCase
+}
+
+type SignTaprootUseCase interface {
+	Execute(ctx context.Context, pubkey, namespace, data string) (string, error)
+	WithStorage(storage logical.Storage) SignTaprootUseCase
+}
+
+type SignMessageUseCase interface {
+	Execute(ctx context.Context, pubkey, namespace, data string) (string, error)
+	WithStorage(storage logical.Storage) SignMessageUseCase
 }
 
 type ListWalletsNamespacesUseCase interface {
