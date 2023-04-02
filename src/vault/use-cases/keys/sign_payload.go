@@ -25,9 +25,9 @@ func NewSignUseCase(getKeyUC usecases.GetKeyUseCase) usecases.KeysSignUseCase {
 	}
 }
 
-func (uc signPayloadUseCase) WithStorage(storage logical.Storage) usecases.KeysSignUseCase {
+func (uc *signPayloadUseCase) WithStorage(storage logical.Storage) usecases.KeysSignUseCase {
 	uc.getKeyUC = uc.getKeyUC.WithStorage(storage)
-	return &uc
+	return uc
 }
 
 func (uc *signPayloadUseCase) Execute(ctx context.Context, id, namespace, data string) (string, error) {

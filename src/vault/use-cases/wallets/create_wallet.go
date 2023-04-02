@@ -56,19 +56,24 @@ func (uc *createWalletUseCase) Execute(ctx context.Context, namespace, importedP
 			return nil, errors.InvalidParameterError(errMessage)
 		}
 	}
+	typeWallet := "imported"
+	if importedPrivKey == "" {
+		typeWallet = "generated"
+	}
 
-	account := &entities.Wallet{
+	wallet := &entities.Wallet{
 		PrivateKey:          hex.EncodeToString(crypto.FromECDSA(privKey)),
 		PublicKey:           hexutil.Encode(crypto.FromECDSAPub(&privKey.PublicKey)),
 		CompressedPublicKey: hexutil.Encode(crypto2.CompressPubkey(&privKey.PublicKey)),
 		Namespace:           namespace,
+		Type:                typeWallet,
 	}
 
-	err = storage.StoreJSON(ctx, uc.storage, storage.ComputeWalletsStorageKey(account.CompressedPublicKey, account.Namespace), account)
+	err = storage.StoreJSON(ctx, uc.storage, storage.ComputeWalletsStorageKey(wallet.CompressedPublicKey, wallet.Namespace), wallet)
 	if err != nil {
 		return nil, err
 	}
 
-	logger.With("compressedPublicKey", account.CompressedPublicKey).Info("wallet created successfully")
-	return account, nil
+	logger.With("compressedPublicKey", wallet.CompressedPublicKey).Info("wallet created successfully")
+	return wallet, nil
 }

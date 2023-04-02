@@ -25,9 +25,9 @@ func NewCreateKeyUseCase() usecases.CreateKeyUseCase {
 	return &createKeyUseCase{}
 }
 
-func (uc createKeyUseCase) WithStorage(storage logical.Storage) usecases.CreateKeyUseCase {
+func (uc *createKeyUseCase) WithStorage(storage logical.Storage) usecases.CreateKeyUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 func (uc *createKeyUseCase) Execute(ctx context.Context, namespace, id, algo, curve, importedPrivKey string, tags map[string]string) (*entities.Key, error) {

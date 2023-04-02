@@ -18,9 +18,9 @@ func NewGetKeyUseCase() usecases.GetKeyUseCase {
 	return &getKeyUseCase{}
 }
 
-func (uc getKeyUseCase) WithStorage(storage logical.Storage) usecases.GetKeyUseCase {
+func (uc *getKeyUseCase) WithStorage(storage logical.Storage) usecases.GetKeyUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 func (uc *getKeyUseCase) Execute(ctx context.Context, id, namespace string) (*entities.Key, error) {

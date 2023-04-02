@@ -18,9 +18,9 @@ func NewListNamespacesUseCase() usecases.ListKeysNamespacesUseCase {
 	return &listNamespacesUseCase{}
 }
 
-func (uc listNamespacesUseCase) WithStorage(storage logical.Storage) usecases.ListKeysNamespacesUseCase {
+func (uc *listNamespacesUseCase) WithStorage(storage logical.Storage) usecases.ListKeysNamespacesUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 // Execute get a list of all available namespaces

@@ -5,4 +5,5 @@ type Wallet struct {
 	PublicKey           string `json:"publicKey"`
 	CompressedPublicKey string `json:"compressedPublicKey"`
 	Namespace           string `json:"namespace,omitempty"`
+	Type                string `json:"type,omitempty"`
 }

@@ -18,9 +18,9 @@ func NewListKeysUseCase() usecases.ListKeysUseCase {
 	return &listKeysUseCase{}
 }
 
-func (uc listKeysUseCase) WithStorage(storage logical.Storage) usecases.ListKeysUseCase {
+func (uc *listKeysUseCase) WithStorage(storage logical.Storage) usecases.ListKeysUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 func (uc *listKeysUseCase) Execute(ctx context.Context, namespace string) ([]string, error) {

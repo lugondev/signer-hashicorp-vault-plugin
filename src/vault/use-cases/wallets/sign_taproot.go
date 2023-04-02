@@ -13,7 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// signTaprootUseCase is a use case to sign an arbitrary payload usign an existing Ethereum account
+// signTaprootUseCase is a use case to sign an arbitrary payload usign an existing wallet
 type signTaprootUseCase struct {
 	getWalletUC usecases.GetWalletUseCase
 }
@@ -42,12 +42,12 @@ func (uc *signTaprootUseCase) Execute(ctx context.Context, pubkey, namespace, da
 		return "", errors.InvalidParameterError(errMessage)
 	}
 
-	account, err := uc.getWalletUC.Execute(ctx, pubkey, namespace)
+	wallet, err := uc.getWalletUC.Execute(ctx, pubkey, namespace)
 	if err != nil {
 		return "", err
 	}
 
-	ecdsaPrivKey, err := crypto.HexToECDSA(account.PrivateKey)
+	ecdsaPrivKey, err := crypto.HexToECDSA(wallet.PrivateKey)
 	if err != nil {
 		errMessage := "failed to parse private key"
 		logger.With("error", err).Error(errMessage)

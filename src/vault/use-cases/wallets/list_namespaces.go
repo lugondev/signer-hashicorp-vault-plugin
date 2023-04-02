@@ -15,7 +15,7 @@ type listWalletsNamespacesUseCase struct {
 	storage logical.Storage
 }
 
-// NewListWalletNamespacesUseCase creates a new ListAccountsUseCase
+// NewListWalletNamespacesUseCase creates a new ListWalletsUseCase
 func NewListWalletNamespacesUseCase() usecases.ListWalletsNamespacesUseCase {
 	return &listWalletsNamespacesUseCase{}
 }

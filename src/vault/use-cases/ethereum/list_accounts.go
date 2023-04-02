@@ -15,14 +15,14 @@ type listAccountsUseCase struct {
 	storage logical.Storage
 }
 
-// NewListAccountUseCase creates a new ListAccountsUseCase
+// NewListAccountsUseCase creates a new ListAccountsUseCase
 func NewListAccountsUseCase() usecases.ListAccountsUseCase {
 	return &listAccountsUseCase{}
 }
 
-func (uc listAccountsUseCase) WithStorage(storage logical.Storage) usecases.ListAccountsUseCase {
+func (uc *listAccountsUseCase) WithStorage(storage logical.Storage) usecases.ListAccountsUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 // Execute gets a list of Ethereum accounts

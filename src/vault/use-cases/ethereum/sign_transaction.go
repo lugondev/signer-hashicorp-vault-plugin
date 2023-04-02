@@ -25,9 +25,9 @@ func NewSignTransactionUseCase(getAccountUC usecases.GetAccountUseCase) usecases
 	}
 }
 
-func (uc signTxUseCase) WithStorage(storage logical.Storage) usecases.SignTransactionUseCase {
+func (uc *signTxUseCase) WithStorage(storage logical.Storage) usecases.SignTransactionUseCase {
 	uc.getAccountUC = uc.getAccountUC.WithStorage(storage)
-	return &uc
+	return uc
 }
 
 // Execute signs an ethereum transaction

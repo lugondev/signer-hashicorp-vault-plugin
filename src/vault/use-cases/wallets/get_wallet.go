@@ -30,12 +30,12 @@ func (uc *getWalletUseCase) Execute(ctx context.Context, compressedPublicKey, na
 	logger := log.FromContext(ctx).With("namespace", namespace).With("compressedPublicKey", compressedPublicKey)
 	logger.Debug("getting wallets")
 
-	account := &entities.Wallet{}
-	err := storage.GetJSON(ctx, uc.storage, storage.ComputeWalletsStorageKey(compressedPublicKey, namespace), account)
+	wallet := &entities.Wallet{}
+	err := storage.GetJSON(ctx, uc.storage, storage.ComputeWalletsStorageKey(compressedPublicKey, namespace), wallet)
 	if err != nil {
 		return nil, err
 	}
 
 	logger.Debug("wallet found successfully")
-	return account, nil
+	return wallet, nil
 }

@@ -14,7 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// signPayloadUseCase is a use case to sign an arbitrary payload usign an existing Ethereum account
+// signPayloadUseCase is a use case to sign an arbitrary payload usign an existing wallet
 type signPayloadUseCase struct {
 	getWalletUC usecases.GetWalletUseCase
 }
@@ -43,12 +43,12 @@ func (uc *signPayloadUseCase) Execute(ctx context.Context, pubkey, namespace, da
 		return "", errors.InvalidParameterError(errMessage)
 	}
 
-	account, err := uc.getWalletUC.Execute(ctx, pubkey, namespace)
+	wallet, err := uc.getWalletUC.Execute(ctx, pubkey, namespace)
 	if err != nil {
 		return "", err
 	}
 
-	ecdsaPrivKey, err := crypto.HexToECDSA(account.PrivateKey)
+	ecdsaPrivKey, err := crypto.HexToECDSA(wallet.PrivateKey)
 	if err != nil {
 		errMessage := "failed to parse private key"
 		logger.With("error", err).Error(errMessage)
@@ -56,7 +56,6 @@ func (uc *signPayloadUseCase) Execute(ctx context.Context, pubkey, namespace, da
 	}
 
 	key, _ := btcec.PrivKeyFromBytes(ecdsaPrivKey.D.Bytes())
-	logger.Debug("ecdsa signing", "key", hexutil.Encode(key.Serialize()))
 	signature := ecdsa.Sign(key, dataBytes)
 	if err != nil {
 		errMessage := "failed to sign payload"

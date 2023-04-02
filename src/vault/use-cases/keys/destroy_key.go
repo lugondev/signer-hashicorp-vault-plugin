@@ -16,9 +16,9 @@ func NewDestroyKeyUseCase() usecases.DestroyKeyUseCase {
 	return &destroyKeyUseCase{}
 }
 
-func (uc destroyKeyUseCase) WithStorage(storage logical.Storage) usecases.DestroyKeyUseCase {
+func (uc *destroyKeyUseCase) WithStorage(storage logical.Storage) usecases.DestroyKeyUseCase {
 	uc.storage = storage
-	return &uc
+	return uc
 }
 
 func (uc *destroyKeyUseCase) Execute(ctx context.Context, namespace, id string) error {

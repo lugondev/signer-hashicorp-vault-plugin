@@ -20,10 +20,10 @@ func NewUpdateKeyUseCase(getKeyUC usecases.GetKeyUseCase) usecases.UpdateKeyUseC
 	}
 }
 
-func (uc updateKeyUseCase) WithStorage(storage logical.Storage) usecases.UpdateKeyUseCase {
+func (uc *updateKeyUseCase) WithStorage(storage logical.Storage) usecases.UpdateKeyUseCase {
 	uc.storage = storage
 	uc.getKeyUC = uc.getKeyUC.WithStorage(storage)
-	return &uc
+	return uc
 }
 
 func (uc *updateKeyUseCase) Execute(ctx context.Context, namespace, id string, tags map[string]string) (*entities.Key, error) {
