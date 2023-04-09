@@ -40,3 +40,6 @@ atlassian-ide-plugin.xml
 !/**/**/.gitkeep
 
 vault/vault-*
+vault/tls
+
+!*.gitkeep

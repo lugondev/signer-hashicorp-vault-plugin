@@ -39,6 +39,7 @@ RUN apk add --no-cache \
 VOLUME /vault/plugins
 
 COPY --from=builder /plugin/signer-hashicorp-vault-plugin /vault/plugins/signer-hashicorp-vault-plugin
+COPY --from=builder /plugin/vault/tls/* /vault/tls/
 COPY --from=builder /plugin/vault/scripts/* /usr/local/bin/
 
 RUN setcap cap_ipc_lock=+ep /vault/plugins/signer-hashicorp-vault-plugin
