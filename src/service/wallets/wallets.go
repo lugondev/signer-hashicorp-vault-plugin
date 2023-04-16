@@ -102,7 +102,7 @@ func (c *controller) pathSign() *framework.Path {
 			formatters.TypeSignLabel: {
 				Type:        framework.TypeString,
 				Description: "signing type",
-				Required:    false,
+				Required:    true,
 			},
 			formatters.DataLabel: {
 				Type:        framework.TypeString,

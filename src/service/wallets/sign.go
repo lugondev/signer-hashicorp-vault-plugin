@@ -49,8 +49,8 @@ func (c *controller) signPayloadHandler() framework.OperationFunc {
 		if payload == "" {
 			return errors.ParseHTTPError(errors2.InvalidFormatError("payload must be provided"))
 		}
-		if typeSign == "" || (typeSign != "ecdsa" && typeSign != "taproot") {
-			typeSign = "eth_sign"
+		if typeSign == "" || (typeSign != "ecdsa" && typeSign != "taproot" && typeSign != "eth_sign") {
+			return errors.ParseHTTPError(errors2.InvalidFormatError("type sign must be provided"))
 		}
 
 		c.logger.Info("signPayloadHandler", "type_sign", typeSign, "payload", payload)

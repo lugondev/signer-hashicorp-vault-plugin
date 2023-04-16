@@ -47,8 +47,11 @@ down:
 	@docker-compose -f docker-compose.dev.yml down --volumes --timeout 0
 
 docker-build:
-	#docker exec -it signer-hashicorp-vault-plugin-vault-1 rm /vault/plugins/signer-hashicorp-vault-plugin
 	@DOCKER_BUILDKIT=1 docker build -t signer-hashicorp-vault-plugin .
+
+docker-remove:
+	rm -f build/bin/signer-hashicorp-vault-plugin
+	docker exec -it signer-hashicorp-vault-plugin-vault-1 rm /vault/plugins/signer-hashicorp-vault-plugin
 
 build-linux:
 	go mod tidy
